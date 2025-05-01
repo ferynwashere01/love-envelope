@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Romantis Amplop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f2f2;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+    }
+    .amplop {
+      width: 200px;
+      height: 120px;
+      background-color: #ffcccb;
+      position: relative;
+      cursor: pointer;
+      border-radius: 10px;
+      overflow: hidden;
+      transform-origin: bottom;
+      transition: transform 1s ease;
+    }
+    .amplop .cover {
+      width: 100%;
+      height: 100%;
+      background-color: #ffcccb;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      transition: transform 1s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .amplop.open .cover {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+    .amplop .emoji {
+      font-size: 50px;
+    }
+    .message {
+      display: none;
+      font-size: 24px;
+      color: #ff3366;
+      margin-top: 20px;
+      transform: translateY(20px);
+      transition: transform 1s ease-out;
+    }
+    .message.show {
+      display: block;
+      transform: translateY(0);
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+    .open {
+      background-color: #ff3366;
+      color: white;
+    }
+    .dont-open {
+      background-color: #ffb3b3;
+      color: black;
+    }
+
+    /* Animasi hati jatuh */
+    .heart {
+      position: absolute;
+      top: -50px;
+      font-size: 40px;
+      color: red;
+      opacity: 0;
+      animation: fall 3s infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -50px;
+        opacity: 1;
+      }
+      50% {
+        top: 70vh;
+        opacity: 1;
+      }
+      100% {
+        top: -50px;
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="amplop" id="amplop">
+    <div class="cover">
+      <span class="emoji">💌</span>
+    </div>
+  </div>
+  <div class="message" id="message">Ayo buka dong!</div>
+  <div class="buttons">
+    <button class="open" id="openButton">Buka Amplop</button>
+    <button class="dont-open" id="dontOpenButton">Nggak Mau Buka</button>
+  </div>
+
+  <script>
+    const amplop = document.getElementById('amplop');
+    const message = document.getElementById('message');
+    const openButton = document.getElementById('openButton');
+    const dontOpenButton = document.getElementById('dontOpenButton');
+
+    // Fungsi untuk membuka amplop
+    openButton.addEventListener('click', () => {
+      amplop.classList.add('open'); // Menambahkan animasi membuka amplop
+      setTimeout(() => {
+        message.textContent = "YAHAHA JAWA!";
+        message.classList.add('show');
+        createHearts(); // Memanggil fungsi untuk membuat hati jatuh
+      }, 1000); // Menunggu 1 detik sebelum pesan muncul
+      openButton.disabled = true;
+      dontOpenButton.disabled = true;
+    });
+
+    // Fungsi tidak membuka amplop
+    dontOpenButton.addEventListener('click', () => {
+      message.textContent = "Ayo buka dong!";
+      message.classList.add('show');
+    });
+
+    // Fungsi untuk membuat hati jatuh
+    function createHearts() {
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = 'JAWA';
+        document.body.appendChild(heart);
+
+        // Mengatur posisi acak
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDelay = Math.random() * 3 + 's';
+      }
+    }
+  </script>
+</body>
+</html>
